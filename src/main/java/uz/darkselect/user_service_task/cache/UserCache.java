@@ -37,7 +37,7 @@ public class UserCache extends AbstractCacheWarmup<User, UserCacheEntity> {
 
     @Override
     protected UUID getLastId(List<User> entities) {
-        return entities.get(entities.size() - 1).getId();
+        return entities.isEmpty() ? new UUID(0L, 0L) : entities.get(entities.size() - 1).getId();
     }
 
     @Override
