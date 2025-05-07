@@ -1,5 +1,6 @@
 package uz.darkselect.user_service_task.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +29,7 @@ public class SubscriptionController {
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/users/{userId}/subscription")
-    public SubscriptionResponseDto createSubscription(@PathVariable UUID userId, @RequestBody @Validated SubscriptionRequestDto subscriptionRequestDto) {
+    public SubscriptionResponseDto createSubscription(@PathVariable UUID userId, @RequestBody @Valid SubscriptionRequestDto subscriptionRequestDto) {
         return subscriptionService.createSubscription(userId, subscriptionRequestDto);
     }
 

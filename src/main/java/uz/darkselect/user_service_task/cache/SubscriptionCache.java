@@ -37,7 +37,7 @@ public class SubscriptionCache extends AbstractCacheWarmup<Subscription, Subscri
 
     @Override
     protected UUID getLastId(List<Subscription> entities) {
-        return entities.get(entities.size() - 1).getId();
+        return entities.isEmpty() ? new UUID(0L, 0L) : entities.get(entities.size() - 1).getId();
     }
 
     @Override
