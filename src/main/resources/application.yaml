@@ -1,0 +1,47 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: user-service
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgresDb
+    username: user
+    password: password
+    hikari:
+      maximum-pool-size: 10
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+  data:
+    redis:
+      host: localhost
+      port: 6381
+
+logging:
+  level:
+    root: INFO
+    org.springframework: DEBUG
+
+async:
+  core-pool-size: 5
+  max-pool-size: 10
+  queue-capacity: 15
+  thread-name-prefix: user-service
+
+cache:
+  redis-batch-size: 500
+  warmup:
+   enabled: true
+   timeout: 30000

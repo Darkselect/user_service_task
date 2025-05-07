@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    container_name: user_service
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: postgresDb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "user", "-d", "postgresDb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis-user-service_task:
+    image: redis:7.2
+    container_name: redis-user-service
+    restart: unless-stopped
+    command: redis-server --save 60 1 --loglevel warning
+    ports:
+      - "6381:6379"
+    volumes:
+      - redis_user_data:/data
+
+volumes:
+  postgres_data:
+  redis_user_data:
